@@ -1,55 +1,55 @@
 var app = playground({
 
-  width: 640,
-  height: 480,
+    width: 640,
+    height: 480,
 
-  scaleToFit: true,
+    scaleToFit: true,
 
-  smoothing: true,
+    smoothing: true,
 
-  create: function() {
+    create: function () {
 
-    this.loadImages("spritesheet");
-    
-  },
+        this.loadImages("spritesheet");
 
-  ready: function() {
+    },
 
-    this.game.start();
+    ready: function () {
 
-    this.setState(this.game);
+        this.game.start();
 
-  },
+        this.setState(this.game);
 
-  step: function(delta) {
+    },
 
-  },
+    step: function (delta) {
 
-  render: function(delta) {
+    },
 
-    this.layer.clear("#008");
-    this.layer.fillStyle("#fff").font("64px Arial").fillText("Hello World!", 32, 64);
+    render: function (delta) {
 
-  },
+        this.layer.clear("#008");
+        this.layer.fillStyle("#fff").font("64px Arial").fillText("Hello World!", 32, 64);
 
-  mousedown: function(event) {
+    },
 
-  },
+    mousedown: function (event) {
 
-  mouseup: function(event) {
+    },
 
-  },
+    mouseup: function (event) {
 
-  mousemove: function(event) {
+    },
 
-  },
+    mousemove: function (event) {
 
-  keydown: function(event) {
+    },
 
-  },
+    keydown: function (event) {
 
-  keyup: function(event) {
+    },
 
-  }
+    keyup: function (event) {
+
+    }
 
 });

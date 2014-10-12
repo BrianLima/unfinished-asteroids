@@ -7,51 +7,66 @@ ENGINE.Bullet = function(args) {
     lifespan: 2
   }, args);
 
-  this.radius = 3;
-
+  this.sprite = this.sprites[this.team];
+  
+  this.width = this.sprite[6];
+  this.height = this.sprite[6];
+  this.radius = Math.min(this.width, this.height) / 2 | 0;
 };
+
+
 
 ENGINE.Bullet.prototype = {
 
-  constructor: ENGINE.Bullet,
+    constructor: ENGINE.Bullet,
 
-  zIndex: 3,
+    zIndex: 3,
 
-  collidable: true,
+    collidable: true,
 
-  collision: function(entity) {
+    sprites: [
+        [20, 53, 6, 6],
+        [43, 56, 6, 6],
+    ],
 
-    if (entity.hit) {
+    collision: function (entity) {
 
-      if (entity.team !== this.team) {
-        entity.hit(this);
-        this.collection.remove(this);
-      }
+        if (entity.hit) {
+
+            if (entity.team !== this.team) {
+                entity.hit(this);
+                this.collection.remove(this);
+            }
+
+        }
+
+    },
+
+    step: function (delta) {
+
+        /* lifespan */
+
+        if ((this.lifespan -= delta) < 0) this.collection.remove(this);
+
+        /* movement */
+
+        this.x += Math.cos(this.direction) * this.speed * delta;
+        this.y += Math.sin(this.direction) * this.speed * delta;
+
+        /* wrap */
+
+        app.game.wrap(this);
+    },
+
+    render: function () {
+
+        app.layer.save();
+
+        app.layer.translate(this.x, this.y);
+        app.layer.drawRegion(app.images.spritesheet, this.sprite, -this.width / 2, -this.height / 2);
+
+        app.layer.restore();
 
     }
-
-  },
-
-  step: function(delta) {
-
-    /* lifespan */
-
-    if ((this.lifespan -= delta) < 0) this.collection.remove(this);
-
-    /* movement */
-
-    this.x += Math.cos(this.direction) * this.speed * delta;
-    this.y += Math.sin(this.direction) * this.speed * delta;
-
-    /* wrap */
-
-    app.game.wrap(this);
-  },
-
-  render: function() {
-
-    app.layer.fillStyle("#fff").fillRect(this.x - 4, this.y - 4, 8, 8);
-
-  }
 
 };
